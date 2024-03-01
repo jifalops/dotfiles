@@ -1,0 +1,19 @@
+[user]
+	name = Jacob Phillips
+	email = jifalops@gmail.com
+[init]
+	defaultBranch = main
+[fetch]
+	prune = true
+[pull]
+	rebase = true
+[push]
+	default = simple
+[core]
+	editor = code --wait
+[credential "https://github.com"]
+	helper = !/usr/bin/gh auth git-credential
+[credential "https://gist.github.com"]
+	helper = !/usr/bin/gh auth git-credential
+[github]
+	user = jifalops

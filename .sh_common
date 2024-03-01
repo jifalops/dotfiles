@@ -1,0 +1,58 @@
+# This is meant for bash and zsh. It will not work with fish.
+
+# set PATH so it includes user's private bin if it exists
+if [ -d "$HOME/bin" ]; then
+    PATH="$HOME/bin:$PATH"
+fi
+if [ -d "$HOME/.local/bin" ]; then
+    PATH="$HOME/.local/bin:$PATH"
+fi
+
+# Git completion
+if [ -f "$HOME/.git-completion.bash" ]; then
+    . "$HOME/.git-completion.bash"
+fi
+
+# Homebrew
+if [ -f "/home/linuxbrew/.linuxbrew/bin/brew" ]; then
+  eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
+fi
+
+# User level Python venv
+if [ -d "$HOME/.venv/bin" ]; then
+    PATH="$HOME/.venv/bin:$PATH"
+fi
+
+# NVM
+if [ -d "$HOME/.nvm" ]; then
+    export NVM_DIR="$HOME/.nvm"
+    [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+    [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+fi
+
+# Rust/cargo
+if [ -d "$HOME/.cargo/bin" ]; then
+    PATH="$HOME/.cargo/bin:$PATH"
+fi
+
+# Flutter and Dart
+if [ -d "$HOME/flutter/bin" ]; then
+    PATH="$HOME/flutter/bin:$PATH"
+    export FLUTTER_ROOT="$HOME/flutter"
+fi
+if [ -d "$HOME/.pub-cache/bin" ]; then
+    PATH="$HOME/.pub-cache/bin:$PATH"
+fi
+
+# Android SDK and NDK
+if [ -d "$HOME/Android/Sdk" ]; then
+    export ANDROID_SDK_ROOT="$HOME/Android/Sdk"
+    PATH="$ANDROID_SDK_ROOT/tools:$ANDROID_SDK_ROOT/tools/bin:$ANDROID_SDK_ROOT/platform-tools:$PATH"
+    if [ -d "$ANDROID_SDK_ROOT/ndk" ]; then
+        export ANDROID_NDK_HOME="$ANDROID_SDK_ROOT/ndk"
+    fi
+fi
+
+# Dev container env vars.
+export GITHUB_TOKEN="$(gh auth token)"
+export TZ=$(date +"%Z")
