@@ -53,6 +53,29 @@ if [ -d "$HOME/Android/Sdk" ]; then
     fi
 fi
 
+# Google cloud SDK
+if [ -d "$HOME/google-cloud-sdk" ]; then
+    # Add to PATH
+    if [ -f "$HOME/google-cloud-sdk/path.bash.inc" ]; then
+        . "$HOME/google-cloud-sdk/path.bash.inc"
+    fi
+    # Bash completion
+    if [ -f "$HOME/google-cloud-sdk/completion.bash.inc" ]; then
+        . "$HOME/google-cloud-sdk/completion.bash.inc"
+    fi
+    # App default credentials (ADC)
+    # https://cloud.google.com/docs/authentication/application-default-credentials
+    GOOGLE_APPLICATION_CREDENTIALS="$HOME/.config/gcloud/application_default_credentials.json"
+    if [ -f "$GOOGLE_APPLICATION_CREDENTIALS" ]; then
+        export GOOGLE_APPLICATION_CREDENTIALS
+    fi
+fi
+
+# An externally managed .secrets file
+if [ -f "$HOME/.secrets" ]; then
+    . "$HOME/.secrets"
+fi
+
 # Dev container env vars.
 export GITHUB_TOKEN="$(gh auth token)"
 export TZ=$(date +"%Z")
