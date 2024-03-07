@@ -41,6 +41,15 @@ if [ ! -f "$HOME/.git-completion.bash" ]; then
     curl -o ~/.git-completion.bash https://raw.githubusercontent.com/git/git/master/contrib/completion/git-completion.bash
 fi
 
+# Install git transcrypt
+if [ ! -d "$HOME/git-transcrypt" ]; then
+    git clone https://github.com/elasticdog/transcrypt.git ~/git-transcrypt
+    mkdir -p "$HOME/.local/bin"
+    target="$HOME/.local/bin/git-transcrypt"
+    backup_file "$target"
+    ln -s "$HOME/git-transcrypt/transcrypt" "$target"
+fi
+
 # List of files to symlink
 files=(".bash_aliases" ".bashrc" ".config/fish" ".gitconfig" ".inputrc" ".profile" ".sh_common" ".zprofile" ".zshrc")
 
