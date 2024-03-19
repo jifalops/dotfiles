@@ -43,6 +43,8 @@ fi
 
 # Install git transcrypt
 if [ ! -d "$HOME/git-transcrypt" ]; then
+    # Prereqs
+    sudo apt-get install -y --no-install-recommends -qq xxd
     git clone https://github.com/elasticdog/transcrypt.git ~/git-transcrypt
     mkdir -p "$HOME/.local/bin"
     target="$HOME/.local/bin/git-transcrypt"
