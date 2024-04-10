@@ -78,4 +78,4 @@ fi
 
 # Dev container env vars.
 export GITHUB_TOKEN="$(gh auth token)"
-export TZ=$(date +"%Z")
+export TZ='US/Eastern'
