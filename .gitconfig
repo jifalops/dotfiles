@@ -10,10 +10,10 @@
 [push]
 	default = simple
 [core]
-	editor = code --wait
+#	editor = code --wait
 [credential "https://github.com"]
-	helper = !/usr/bin/gh auth git-credential
+#	helper = !/usr/bin/gh auth git-credential
 [credential "https://gist.github.com"]
-	helper = !/usr/bin/gh auth git-credential
+#	helper = !/usr/bin/gh auth git-credential
 [github]
 	user = jifalops

@@ -27,7 +27,7 @@ create_symlink() {
     ln -s "$dotfiles_dir/$file" "$target"
 }
 
-sudo apt-get update -qq && sudo apt-get install -y --no-install-recommends -qq zsh fish trash-cli
+#sudo apt-get update -qq && sudo apt-get install -y --no-install-recommends -qq zsh fish trash-cli
 
 # Install oh-my-zsh
 if [ ! -d "$HOME/.oh-my-zsh" ]; then
@@ -44,7 +44,7 @@ fi
 # Install git transcrypt
 if [ ! -d "$HOME/git-transcrypt" ]; then
     # Prereqs
-    sudo apt-get install -y --no-install-recommends -qq xxd
+ #   sudo apt-get install -y --no-install-recommends -qq xxd
     git clone https://github.com/elasticdog/transcrypt.git ~/git-transcrypt
     mkdir -p "$HOME/.local/bin"
     target="$HOME/.local/bin/git-transcrypt"
