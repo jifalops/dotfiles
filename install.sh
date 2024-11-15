@@ -27,30 +27,17 @@ create_symlink() {
     ln -s "$dotfiles_dir/$file" "$target"
 }
 
-sudo apt-get update -qq && sudo apt-get install -y --no-install-recommends -qq zsh fish trash-cli
-
 # Install oh-my-zsh
-if [ ! -d "$HOME/.oh-my-zsh" ]; then
-    echo "Installing oh-my-zsh..."
-    curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh | bash
-fi
+# if [ ! -d "$HOME/.oh-my-zsh" ]; then
+#     echo "Installing oh-my-zsh..."
+#     curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh | bash
+# fi
 
 # Install git completion
-if [ ! -f "$HOME/.git-completion.bash" ]; then
-    echo "Installing git completion..."
-    curl -o ~/.git-completion.bash https://raw.githubusercontent.com/git/git/master/contrib/completion/git-completion.bash
-fi
-
-# Install git transcrypt
-if [ ! -d "$HOME/git-transcrypt" ]; then
-    # Prereqs
-    sudo apt-get install -y --no-install-recommends -qq xxd
-    git clone https://github.com/elasticdog/transcrypt.git ~/git-transcrypt
-    mkdir -p "$HOME/.local/bin"
-    target="$HOME/.local/bin/git-transcrypt"
-    backup_file "$target"
-    ln -s "$HOME/git-transcrypt/transcrypt" "$target"
-fi
+# if [ ! -f "$HOME/.git-completion.bash" ]; then
+#     echo "Installing git completion..."
+#     curl -o ~/.git-completion.bash https://raw.githubusercontent.com/git/git/master/contrib/completion/git-completion.bash
+# fi
 
 # List of files to symlink
 files=(".bash_aliases" ".bashrc" ".config/fish" ".gitconfig" ".inputrc" ".profile" ".sh_common" ".zprofile" ".zshrc")
@@ -59,5 +46,11 @@ files=(".bash_aliases" ".bashrc" ".config/fish" ".gitconfig" ".inputrc" ".profil
 for file in "${files[@]}"; do
     create_symlink "$file"
 done
+
+# Install trash-cli
+if ! command -v trash &> /dev/null; then
+    echo "Installing trash-cli..."
+    pip install trash-cli
+fi
 
 echo "Dotfiles installation complete."
