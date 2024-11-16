@@ -27,12 +27,6 @@ create_symlink() {
     ln -s "$dotfiles_dir/$file" "$target"
 }
 
-# Install oh-my-zsh
-# if [ ! -d "$HOME/.oh-my-zsh" ]; then
-#     echo "Installing oh-my-zsh..."
-#     curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh | bash
-# fi
-
 # Install git completion
 # if [ ! -f "$HOME/.git-completion.bash" ]; then
 #     echo "Installing git completion..."
