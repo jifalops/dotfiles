@@ -26,6 +26,11 @@ fi
 # NVM
 if [ -d "$HOME/.nvm" ]; then
     export NVM_DIR="$HOME/.nvm"
+fi
+if [ -d "$HOME/.config/nvm" ]; then
+    export NVM_DIR="$HOME/.config/nvm"
+fi
+if [ -d "$NVM_DIR" ]; then
     [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
     [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
 fi
@@ -33,6 +38,9 @@ fi
 # Rust/cargo
 if [ -d "$HOME/.cargo/bin" ]; then
     PATH="$HOME/.cargo/bin:$PATH"
+fi
+if [ -f "$HOME/.cargo/env" ]; then
+    . "$HOME/.cargo/env"
 fi
 
 # Flutter and Dart
@@ -77,5 +85,7 @@ if [ -f "$HOME/.secrets" ]; then
 fi
 
 # Dev container env vars.
-export GITHUB_TOKEN="$(gh auth token)"
+if command -v gh &> /dev/null; then
+    export GITHUB_TOKEN="$(gh auth token)"
+fi
 export TZ='US/Eastern'
