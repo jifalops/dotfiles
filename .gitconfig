@@ -6,7 +6,7 @@
 [fetch]
 	prune = true
 [pull]
-	rebase = true
+	rebase = false
 [push]
 	default = simple
 [core]

@@ -18,6 +18,11 @@ if [ -f "/home/linuxbrew/.linuxbrew/bin/brew" ]; then
   eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
 fi
 
+# Go (after brew so it takes precedence)
+if [ -d "/usr/local/go/bin" ]; then
+    PATH="/usr/local/go/bin:$PATH"
+fi
+
 # User level Python venv
 if [ -d "$HOME/.venv/bin" ]; then
     PATH="$HOME/.venv/bin:$PATH"

@@ -66,10 +66,14 @@ else
 fi
 unset color_prompt force_color_prompt
 
-# If this is an xterm set the title to user@host:dir
+# If this is an xterm set the title to user@host:dir (or the zmx session name, if attached)
 case "$TERM" in
 xterm*|rxvt*)
-    PS1="\[\e]0;${debian_chroot:+($debian_chroot)}\u@\h: \w\a\]$PS1"
+    if [ -n "$ZMX_SESSION" ]; then
+        PS1="\[\e]0;${ZMX_SESSION}\a\]$PS1"
+    else
+        PS1="\[\e]0;${debian_chroot:+($debian_chroot)}\u@\h: \w\a\]$PS1"
+    fi
     ;;
 *)
     ;;
@@ -141,6 +145,27 @@ __bash_prompt() {
 __bash_prompt
 export PROMPT_DIRTRIM=4
 
+# zmx: show the session name in the prompt when inside one
+if [ -n "${ZMX_SESSION:-}" ]; then
+    PS1="\[\033[0;35m\][${ZMX_SESSION}]\[\033[0m\] ${PS1}"
+fi
+
+# zmx: enable bash tab-completion
+if command -v zmx >/dev/null 2>&1; then
+    eval "$(zmx completions bash)"
+fi
+
 if [ -f "$HOME/.sh_common" ]; then
     source "$HOME/.sh_common"
+fi
+
+# fnm
+FNM_PATH="/home/jacob/.local/share/fnm"
+if [ -d "$FNM_PATH" ]; then
+  export PATH="$FNM_PATH:$PATH"
+  eval "$(fnm env --shell bash)"
+fi
+
+if command -v direnv >/dev/null 2>&1; then
+    eval "$(direnv hook bash)"
 fi
